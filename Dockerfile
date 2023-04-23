@@ -1,5 +1,6 @@
 FROM debian:10
 
+# Install apache2, php and mysql
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     debconf-utils && \
@@ -7,7 +8,10 @@ RUN apt-get update && \
     echo mariadb-server mysql-server/root_password_again password p4ssw0rd | debconf-set-selections && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \    
     mariadb-server &&\
-    apt-get install -y apache2 php wget php-mysqli php-gd libapache2-mod-php netcat curl
+    apt-get install -y apache2 php wget php-mysqli php-gd libapache2-mod-php
+
+# Install test tools
+RUN apt-get install -y curl netcat
   
 COPY . /var/www/html
 COPY php.ini /etc/php/7.3/apache2/php.ini
