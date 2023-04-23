@@ -10,8 +10,10 @@ RUN apt-get update && \
     mariadb-server &&\
     apt-get install -y apache2 php wget php-mysqli php-gd libapache2-mod-php
 
-# Install test tools
-RUN apt-get install -y curl netcat
+# Install curl and netcat
+RUN apt-get update && \
+    apt-get install -y gcc && \
+    apt-get install -y curl netcat
   
 COPY . /var/www/html
 COPY php.ini /etc/php/7.3/apache2/php.ini
